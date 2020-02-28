@@ -1,0 +1,95 @@
+//import java.util.*;
+public class Lecture_16
+{
+
+    /*public static void combi(int cb_idx,int tb_idx,int tbs, int r,String ans)                         //COMBINATION OF BOXES.
+    {   
+        if(cb_idx==tb_idx)
+        {
+            if(tbs==r)
+            {
+                System.out.println(ans);
+            }
+            return;
+        }
+
+        //to select this perticular box.   
+        combi(cb_idx+1,tb_idx,tbs+1,r,ans+ " "+cb_idx );
+
+        //t=not to select this particular box.
+        combi(cb_idx+1,tb_idx,tbs,r,ans);
+
+    }
+
+    public static void main(String[] args)
+    {
+        boolean[] box=new boolean[4];
+        combi(0,3,0,2,"");
+    }*/                                                                        //REVIEWED
+
+
+
+
+
+    /*public static void permu(int cb,int n,int isf,int r,String ans,boolean[] items)            //PERMUTATION OF OBJECTS IN BOXES.
+    {   
+        if(cb>n)
+        {
+            if(isf==r)
+            {
+                System.out.println(ans);
+            }
+            return;
+        }
+
+       permu(cb+1,n,isf,r,ans,items);
+       for(int i=0;i<items.length;i++)  
+       {    
+           if(items[i]==false)
+           {
+               items[i]=true;
+               permu(cb+1,n,isf+1,r, ans+i+"["+cb+"]",items);
+               items[i]=false;
+           }
+       }
+
+    }
+
+    public static void main(String[] args)
+    {
+        boolean[] items={false,false};
+        permu(0,3,0,2,"",items);
+     
+    }*/                                                               //REVIEWED.
+
+
+
+
+
+    public static void money_permu(int total,int so_far,int[] arr,String ans)
+    {   
+        if(so_far==total)
+        {
+            System.out.println(ans);
+            return;
+        }
+        for(int i=0;i<4;i++)
+        {
+            if(arr[i]<=total-so_far)
+            {   
+                money_permu(total,so_far + arr[i],arr,ans+ arr[i]);
+            }
+        }
+    }
+    
+
+    public static void money_combi(int total,int so_far,int[] arr,String ans)
+    {
+        
+    }
+    public static void main(String[] args)
+    {
+        int[] arr={2,3,5,6};
+        money_permu(7,0,arr,"");
+    }
+}
