@@ -1,18 +1,10 @@
-#include <iosteam>
+#include <iostream>
 using namespace std;
 
-int main(int argv, char** argc) {
-    int t;
-    cin>>t;
+int main() {
+    bool arr[5];
 
-    while(t--) {
-        int n;
-        cin>>n;
+    int n = sizeof(arr)/sizeof(*arr);
 
-        int arr1 = new int[n];
-        for(int i = 0; i < arr1.)
-        int arr2 = new int[n];
-
-
-    }
+    cout<<n;
 }

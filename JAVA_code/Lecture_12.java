@@ -6,7 +6,7 @@
 public class Lecture_12
 {   
 
-    /*public static ArrayList<String> getss(String s)                       //TO GET ALL THE SUB SEQUENCES OF A STRING.
+    /*public static ArrayList<String> getss(String s)                       //TO GET ALL THE SUB SEQUENCES OF A STRING in a arraylist.
     {   
         if(s.length()==0)
         {

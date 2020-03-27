@@ -1,3 +1,6 @@
+                                                            //Lecture-15
+                                                            //July-10
+
 //import java.util.*;
 public class Lecture_15
 {
@@ -12,7 +15,7 @@ public class Lecture_15
         maze[sr][sc]=2;
         if(sr>0 && maze[sr-1][sc]!=1 && maze[sr-1][sc]!=2)
         {
-            maze_flood_flow(sr-1,sc,maze,ans+"t");
+            maze_flood_flow(sr-1,sc,maze,ans+"u");
         }   
 
         if(sc>0 && maze[sr][sc-1]!=1 && maze[sr][sc-1]!=2)
@@ -83,7 +86,7 @@ public class Lecture_15
 
 
 
-    public static void box_permutations(boolean[] boxes, int co, int to,int lob,String ans)        //COMBINATIONs OF OBJECTS INTO BOXES.        //PERMUTATIONS OF OBJECTS IN BOXES.        
+    /*public static void box_combinations(boolean[] boxes, int co, int to,int lob,String ans)        //COMBINATIONs OF OBJECTS INTO BOXES.        //PERMUTATIONS OF OBJECTS IN BOXES.        
     {   
         if(co>to)                                                                    //here lob is the box in which last object is
         {                                                                            //placed, so after that the remaining objects 
@@ -97,7 +100,7 @@ public class Lecture_15
             {   
                 
                 boxes[i]=false;
-                box_permutations(boxes,co+1,to,i,ans+co+"[" + "b" + i +"] " );
+                box_combinations(boxes,co+1,to,i,ans+co+"[" + "b" + i +"] " );
                 boxes[i]=true;
             }
            
@@ -106,8 +109,7 @@ public class Lecture_15
     public static void main(String[] args)
     {
         boolean[] boxes={true,true,true,true,true};
-        box_permutations(boxes,1,2,-1,"");
-        System.out.println(boxes.length);
-    }
+        box_combinations(boxes,1,2,-1,"");
+    }*/                                                                //REVIEWED.
 
 }

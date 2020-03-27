@@ -1,10 +1,13 @@
+                                                //LECTURE-16
+                                                //JULY - 11
+
 //import java.util.*;
 public class Lecture_16
 {
 
-    /*public static void combi(int cb_idx,int tb_idx,int tbs, int r,String ans)                         //COMBINATION OF BOXES.
+    /*public static void combi2(int cb_idx,int tb_idx,int tbs, int r,String ans)                   //TO GET COMBINATION of objects among boxes.                        //COMBINATION OF BOXES.
     {   
-        if(cb_idx==tb_idx)
+        if(cb_idx == tb_idx + 1)
         {
             if(tbs==r)
             {
@@ -13,18 +16,21 @@ public class Lecture_16
             return;
         }
 
-        //to select this perticular box.   
-        combi(cb_idx+1,tb_idx,tbs+1,r,ans+ " "+cb_idx );
+        if(tbs < r) {
+            //to select this perticular box.   
+            combi2(cb_idx+1,tb_idx,tbs+1,r,ans+ " "+cb_idx );
+    
+        }
 
-        //t=not to select this particular box.
-        combi(cb_idx+1,tb_idx,tbs,r,ans);
+        //to not to select this particular box.
+        combi2(cb_idx+1,tb_idx,tbs,r,ans);
 
     }
 
     public static void main(String[] args)
     {
         boolean[] box=new boolean[4];
-        combi(0,3,0,2,"");
+        combi2(0,4,0,2,"");
     }*/                                                                        //REVIEWED
 
 
@@ -32,7 +38,7 @@ public class Lecture_16
 
 
     /*public static void permu(int cb,int n,int isf,int r,String ans,boolean[] items)            //PERMUTATION OF OBJECTS IN BOXES.
-    {   
+    {                                                                                              // using second method
         if(cb>n)
         {
             if(isf==r)
@@ -58,7 +64,7 @@ public class Lecture_16
     public static void main(String[] args)
     {
         boolean[] items={false,false};
-        permu(0,3,0,2,"",items);
+        permu(0,4,0,2,"",items);
      
     }*/                                                               //REVIEWED.
 
@@ -66,7 +72,7 @@ public class Lecture_16
 
 
 
-    public static void money_permu(int total,int so_far,int[] arr,String ans)
+    /*public static void money_permu(int total,int so_far,int[] arr,String ans)
     {   
         if(so_far==total)
         {
@@ -83,6 +89,8 @@ public class Lecture_16
     }
     
 
+
+
     public static void money_combi(int total,int so_far,int[] arr,String ans)
     {
         
@@ -91,5 +99,5 @@ public class Lecture_16
     {
         int[] arr={2,3,5,6};
         money_permu(7,0,arr,"");
-    }
+    }*/
 }

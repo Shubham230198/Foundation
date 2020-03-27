@@ -52,7 +52,7 @@ vector<string> getkpc(string str)
 
 
 
-int main(int argc,char** argv)                     //STRING INTRODUCTION
+int main(int argc,char** argv)                     //STRING INTRODUCTION.
 {
       string s;
       s="835";

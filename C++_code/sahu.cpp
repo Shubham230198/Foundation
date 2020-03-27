@@ -1,53 +1,50 @@
-#include <iostream>
-#include <algorithm>
+#include <bits/stdc++.h>
 using namespace std;
 
-int actualResult = 0;
+int result(int n) {
+    int count = 0;
 
-
-void recursiveAnswer(int arr1[], int arr2[], int n, int idx, bool check[], int totalSum) {
-    if(idx == n) {
-        if(actualResult < totalSum) {
-        // cout<<"hello"<<" ";
-            actualResult = totalSum;
-        }
-        return;
+    while(n > 0) {
+        n = (n & (n-1));
+        count++;
     }
-
-    for(int i = 0; i < n; i++) {
-        if(check[i] == false) {
-            check[i] = true;
-            recursiveAnswer(arr1, arr2, n, idx + 1, check, totalSum + (arr1[idx] < arr2[i] ? arr1[idx] : arr2[i]));
-            check[i] = false;
-        }
-    }
+    return count;
 }
 
-int main(int argc, char** argv) {
+int main() {
+    ios_base::sync_with_stdio(false); 
+    cin.tie(NULL);
+
     int t;
     cin>>t;
 
     while(t--) {
-        long n;
-        cin>>n;
+        int n,q;
+        cin>>n>>q;
 
-        long arr1[n];
-        for(long i = 0; i < n; i++) {
-            cin>>arr1[i];
+        int arr[n];
+        for(int i = 0; i < n; i++) {
+            cin>>arr[i];
         }
 
-        long arr2[n];
-        for(long i = 0; i < n; i++) {
-            cin>>arr2[i];
-        }
-        
-        sort(arr1, arr1 + n);
-        sort(arr2, arr2 + n);
+        for(int j = 0; j < q; j++) {
+            int p;
+            cin>>p;
+            int odd = 0;
+            int even = 0;
 
-        int maxValue = 0;
-        for(long i = 0; i < n; i++) {
-            maxValue += (arr1[i] < arr2[i] ? arr1[i] : arr2[i]);
+            for(int i = 0; i < n; i++) {
+                int res = result(p ^ arr[i]);
+                if(res % 2 == 0) {
+                    even++;
+                }
+                else
+                {
+                    odd++;
+                }
+            }
+            cout<<even<<" "<<odd<<"\n";
         }
-        cout<<maxValue<<endl;
     }
+    return 0;
 }

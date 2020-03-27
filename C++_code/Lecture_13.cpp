@@ -1,3 +1,6 @@
+                                                        //Lecture - 13
+                                                        //June 6
+
 #include<iostream>
 #include<vector>
 #include<string>
@@ -186,15 +189,15 @@ vector<string> get_array_paths(int arr[],int n,int index)                //ARRAY
         return bs;
     }
 
-    if(index>n-1)
+    if(index>n-1)                                                
     {
         vector<string> false_bs;
         return false_bs;
     }
 
     vector<string> s_to_d;
-    for(int ms=1;ms<=arr[index];ms++)
-    {
+    for(int ms=1;ms<=arr[index];ms++)                            //Here we have made reactive calls,
+    {                                                            //instead, we should have made proactive calls.
         vector<string> n_to_d=get_array_paths(arr,n,index+ms);
         for(int i=0;i<n_to_d.size();i++)
         {
@@ -215,7 +218,7 @@ int main()
 
     for(int i=0;i<path.size();i++)
     {
-        cout<<path[i]<<endl;
+        cout<<path[i]<<endl;-
     }
     return 0;
 }                                                                                      //REVIEWED.

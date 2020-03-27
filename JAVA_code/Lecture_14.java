@@ -1,7 +1,12 @@
+                                            //Lecture - 14
+                                            //June - 7
+
+                                            //RECURSION WITH VOID RETURN TYPE.
 //import java.util.*;
 public class Lecture_14
 {   
-    /*static void print_sub_sequence(String ques,String ans)
+
+    /*static void print_sub_sequence(String ques,String ans)               //TO PRINT THE SUB-SEQUENCES of a string. (2^n)
     {
         if(ques.length()==0)
         {
@@ -25,8 +30,8 @@ public class Lecture_14
 
 
 
-    /*public static void stair_case(int ques,String ans)
-    {   
+    /*public static void stair_case(int ques,String ans)           //TO PRINT ALL PATHS, for StairCase problem.
+    {                                                               
         if(ques==0)
         {
             System.out.println(ans);
@@ -52,8 +57,8 @@ public class Lecture_14
 
 
 
-    /*static String[] count={                                 //TO GET THE PHONE KEYPAD
-        ".",                                           //COMBINATIONS.
+    /*static String[] count={                                 //TO PRINT THE PHONE KEYPAD
+        ".",                                                 //COMBINATIONS.
         "abc",
         "def",
         "ghi" ,
@@ -91,7 +96,7 @@ public class Lecture_14
 
 
 
-   /*static int[] stair_val={3,2,0,4,1,2,0,2,3,0,1};
+   /*static int[] stair_val={3,2,0,4,1,2,0,2,3,0,1};                          //TO PRINT GET_ARRAY_PATH PATHS.
 
    //static int[] stair_val={3,0,1,3,2,3,4};                                   //test case
     public static void stair_case_2(int ques,String ans)
@@ -121,7 +126,7 @@ public class Lecture_14
 
 
 
-    /*public static void maze_1(int srow,int scol,int drow,int dcol,String ans)
+    /*public static void maze_1(int srow,int scol,int drow,int dcol,String ans)        //TO PRINT MAZEPATH PATHS.
     {   
         if(srow==drow && scol==dcol)
         {
@@ -145,7 +150,7 @@ public class Lecture_14
 
 
     
-    /*public static void maze_2(int srow,int scol,int drow,int dcol,String ans)
+    /*public static void maze_2(int srow,int scol,int drow,int dcol,String ans)       //TO PRINT MULTI_MAZEPATH PATHS.
     {   
         if(srow==drow && scol==dcol)
         {
