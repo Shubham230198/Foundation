@@ -1,11 +1,12 @@
-//import java.util.*;
+                                            //Lecture-19
+                                            //July-14
 
-
+import java.util.*;
 public class Lecture_19
 {   
     /*static String duplicates(String s1, String s2, String s3)                //CRYPTO PROBLEM.
-    {   
-        boolean[] check=new boolean[26];
+    {                                                                            //(keeping integer mappings as options,   
+        boolean[] check=new boolean[26];                                         //and characters to map at levels)
         String ans="";
         for(int i=0;i<s1.length();i++)
         {   
@@ -33,9 +34,9 @@ public class Lecture_19
                 check[s3.charAt(i)-97]=true;
             }
         }
-
         return ans;
     }
+
 
     static int getnumber(String s,int[] map)
     {
@@ -47,7 +48,6 @@ public class Lecture_19
             num+=factor*map[s.charAt(i)-97];
             factor*=10;
         }
-
         return num;
     }
 
@@ -55,30 +55,28 @@ public class Lecture_19
     static void getmapping(String unique,int[] map, boolean[] check)
     {   
         if(unique.length()==0)
+        {
+            int n1=getnumber(s1, map);
+            int n2=getnumber(s2, map);
+            int n3=getnumber(s3, map);
+
+            if(n1+n2==n3)
             {
-                int n1=getnumber(s1, map);
-                int n2=getnumber(s2, map);
-                int n3=getnumber(s3, map);
-
-                if(n1+n2==n3)
+                System.out.print( ++counter + ".");
+                for(int j=0;j<map.length;j++)
                 {
-                    System.out.print( ++counter + ".");
-                    for(int j=0;j<map.length;j++)
+                    if(map[j]!=-1)
                     {
-                        if(map[j]!=-1)
-                        {
-                            System.out.print((char)(j+97)+"="+map[j]+" ");
-                        }
+                        System.out.print((char)(j+97)+"="+map[j]+" ");
                     }
-                    System.out.println();
                 }
-                return;
+                System.out.println();
             }
-
+            return;
+        }
 
         for(int i=0;i<10;i++)
-        {   
-            
+        {               
             //System.out.println(unique.length());
             char ch=unique.charAt(0);
             String roq=unique.substring(1,unique.length());
@@ -101,9 +99,9 @@ public class Lecture_19
     public static void main(String[] args)
     {
         Scanner scn=new Scanner(System.in);
-        s1=scn.next();
-        s2=scn.next();
-        s3=scn.next();
+        s1= "send";
+        s2= "more";
+        s3= "money";
 
         String unique=duplicates(s1,s2,s3);
         int[] map=new int[25];
@@ -112,13 +110,17 @@ public class Lecture_19
 
         getmapping(unique,map,check);
    
-    }*/                                                  //REVIEWED.
+    }                                                  //REVIEWED.
 
 
 
 
 
-    public static boolean issafe(int[][] board,int i, int j, int option)                        //SUDOKU PROBLEM
+
+
+
+
+    /*public static boolean issafe(int[][] board,int i, int j, int option)                        //SUDOKU PROBLEM
     {
         for(int jj=0;jj<board[0].length;jj++)
         {
@@ -225,6 +227,6 @@ public class Lecture_19
         };
 
         sudoku(board,0,0);
-    }                                                 //REVIEWED.
+    }*/                                                 //REVIEWED.
     
 }

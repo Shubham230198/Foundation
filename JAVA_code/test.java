@@ -1,29 +1,10 @@
 import java.util.*;
 public class test {
-
-    static int n;
-    static List<Integer> res;
-    public static List<Integer> lexicalOrder(int x) {
-        n = x;
-        res = new ArrayList<>();
-        for (int i = 1; i < 10; i ++) {
-            if (i > n) break;
-            dfs(i);
-        }
-        return res;
-    }
-
-    private static void dfs(int st) {
-        res.add(st);
-        st *= 10;
-        for (int i = 0; i < 10; i++){
-            if (st + i > n) return;
-            dfs(st + i); 
-        }
-    }
-
     public static void main(String[] args) {
-        System.out.println(lexicalOrder(13));
+
+        Set<Integer> res =  new HashSet<>(Arrays.asList(new Integer[] {1,2,3,4,5}));
+        Set<Integer> res1 =  new TreeSet<>(Arrays.asList(new Integer[] {5,2,3,1, 4}));
+
+        System.out.println(res.equals(res1));
     }
-    
 }

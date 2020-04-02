@@ -1,3 +1,6 @@
+                                                    //LECTURE-18
+                                                    //JULY-13
+
 #include<iostream>
 #include<string>
 #include<vector>
@@ -6,7 +9,7 @@ using namespace std;
 
 
 /*void encodings(string ques, string asf)                   //TO GET COMBINATIONS OF ALL INTEGERS
-{                                                         //IN THE FORM OF STRINGS
+{                                                               //possible in the form of strings.
    if(ques.length()==0)
    {
        cout<<asf<<endl;
@@ -45,16 +48,21 @@ using namespace std;
            }
        }
    }
-   
-
 }
+
+
 int main()
 {
     
-    //encodings("1123","");      //test cases
-    encodings("1203","");
-    //encodings("1321","");
-    //encodings("1023","");
+    encodings("1123","");       //test cases 1
+
+    // encodings("1203","");       //test case 2
+    // encodings("1023","");        
+    
+    // encodings("1321","");        //test case 3
+    
+    // encodings("1003", "");       //test case 4
+
     return 0;
 }*/                                                 //REVIEWED.
 
@@ -63,7 +71,12 @@ int main()
 
 
 
-void word_break(string ques,string asf,unordered_set<string> & dictionary)
+
+
+
+
+
+/*void word_break(string ques,string asf,unordered_set<string> & dictionary)                //WORD BREAK PROBLEM.(void return type)
 {
     if(ques.length()==0)
     {
@@ -84,12 +97,13 @@ void word_break(string ques,string asf,unordered_set<string> & dictionary)
 }
 
 
+
 int main()
 {
     unordered_set<string> dictionary;
     dictionary.insert("man");
     dictionary.insert("mango");
-    // dictionary.insert("go");
+    dictionary.insert("go");
     dictionary.insert("cream");
     dictionary.insert("ice");
     dictionary.insert("icecream");
@@ -98,5 +112,63 @@ int main()
     dictionary.insert("samsung");
     
     word_break("mangoicecreamsamsung","",dictionary);
+
+    word_break("mangoicecreamCHECKsamsung","",dictionary);             //contain word not present in dictionary, 
+                                                                        //thus there won't be any answer.
     
+}*/                                                  //REVIEWED.
+
+
+
+
+
+
+
+
+
+
+
+/*vector<string> getWordBreak(string ques, unordered_set<string> &dictionary) {                    //Word Break Problem(vector return type)
+    if(ques.length() == 0) {
+        vector<string> bs;
+        bs.push_back("");
+        return bs;
+    }
+    
+    vector<string> myAns;
+    for(int i = 1; i <= ques.length(); i++) {
+        string prefix = ques.substr(0, i);
+
+        if(dictionary.count(prefix) == 1) {
+            vector<string> pre = getWordBreak(ques.substr(i, ques.length() - prefix.length()), dictionary);
+            for(string str : pre) {
+                myAns.push_back(prefix + "-" + str);
+            }
+        }
+    }
+    return myAns;
 }
+
+
+int main() {
+    unordered_set<string> dictionary;
+    dictionary.insert("man");
+    dictionary.insert("mango");
+    dictionary.insert("go");
+    dictionary.insert("cream");
+    dictionary.insert("ice");
+    dictionary.insert("icecream");
+    dictionary.insert("sam");
+    dictionary.insert("sung");
+    dictionary.insert("samsung");
+
+    vector<string> ans = getWordBreak("mangoicecreamsamsung", dictionary);
+    for(string s : ans) {
+        cout<<s<<"\n";
+    }
+
+    vector<string> ans = getWordBreak("mangoicecreamsamsung", dictionary);          //test case with word, not present in dictionary
+    for(string s : ans) {                                                           //therefore there won't be any solution.
+        cout<<s<<"\n";
+    }
+}*/                                                             //REVIEWED.

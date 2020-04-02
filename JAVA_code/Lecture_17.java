@@ -1,12 +1,13 @@
-//import java.util.*;
+                                            //Lecture-17
+                                            //July - 12
 
-
+import java.util.*;
 public class Lecture_17
 {
-    
-    /*public static boolean issafe(boolean[][] arr,int ci,int cj)                                   //N_QUEENS chess board problem
-    {
-        for(int j=cj-1;j>=0;j--)
+                                                                            
+    /*public static boolean issafe(boolean[][] arr,int ci,int cj)                                   //N_QUEENS chess board problem(queens at levels, boxes as option)
+    {                                                                                                  //1.keeping queens at levels, and boxes as options
+        for(int j=cj-1;j>=0;j--)                                                                       //2.This is just combination.
         {   
             if(arr[ci][j]==true)
                 return false;
@@ -67,8 +68,10 @@ public class Lecture_17
 
 
 
-    /*public static boolean issafe_knight(boolean[][] arr,int ci,int cj)                             //N_KNIGHTS in chess board problem.
-    {
+
+
+    /*public static boolean issafe_knight(boolean[][] arr,int ci,int cj)                             //N_KNIGHTS in chess board problem(knights at levels, boxes as option).
+    {                                                                   
         if(ci>=1 && cj>=2 && arr[ci-1][cj-2]==true)
             return false;
         else if(ci>=2 && cj>=1 && arr[ci-2][cj-1]==true)
@@ -110,13 +113,87 @@ public class Lecture_17
         int n=4;
         boolean[][] arr = new boolean[n][n];
         knight(arr,0,n,"",0,-1);
-    }*/                                                                                  //REVIEWED.
+    }*/                                                                                 //REVIEWED.
 
 
 
 
 
-    public static boolean issafe_knight(boolean[][] arr,int ci,int cj)                             //N_KNIGHTS in chess board problem.
+
+
+
+    /*public static boolean isSafe(boolean[][] chess, int r, int c) {                       //N_QUEEN problem.
+                                                                                             //(keeping boxes at levels, queens as options)
+        for(int i = r - 1; i >= 0; i--) {
+            if(chess[i][c] == true) {
+                return false;
+            }
+        }
+
+        for(int j = c - 1; j >= 0; j--) {
+            if(chess[r][j] == true) {
+                return false;
+            }
+        }
+
+        for(int i = r - 1, j = c - 1; i >= 0 && j >= 0; i--, j--) {
+            if(chess[i][j] == true) {
+                return false;
+            }
+        }
+
+        for(int i = r - 1, j = c + 1; i >= 0 && j < chess[0].length; i--, j++) {
+            if(chess[i][j] == true) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    
+    static int count = 0;
+    public static void n_queens(boolean[][] chess, int i, int j, int qsf, String s) {
+        if(i == chess.length && j == 0) {
+            if(qsf == chess.length) {
+                System.out.println(++count + "->" + s);
+            }
+            return;
+        }
+        
+        if(j == chess[0].length - 1) {
+            n_queens(chess, i + 1, 0, qsf, s);
+            if(isSafe(chess, i , j) == true) {
+                chess[i][j] = true;
+                n_queens(chess, i + 1, 0, qsf + 1, s + i + j + " ");
+                chess[i][j] = false;
+            }
+        }
+        else {
+            n_queens(chess, i, j + 1, qsf, s);
+            if(isSafe(chess, i, j) == true) {
+                chess[i][j] = true;
+                n_queens(chess, i, j + 1, qsf + 1, s + i + j + " ");
+                chess[i][j] = false;
+            }
+        }
+    }
+
+
+    public static void main(String[] args) {
+        int n = 4;
+        boolean[][] chess = new boolean[n][n];
+        n_queens(chess, 0, 0, 0, "");
+    }*/                                                                         //REVIEWED.
+
+
+
+
+
+
+
+
+    
+    /*public static boolean issafe_knight(boolean[][] arr,int ci,int cj)                             //N_KNIGHTS in chess board problem(boxes at levels, queens as options).
     {
         if(ci>=1 && cj>=2 && arr[ci-1][cj-2]==true)
             return false;
@@ -136,7 +213,7 @@ public class Lecture_17
         if(i==arr.length && j==0)
         {   
             if(ksf==arr.length)
-                System.out.println(ans);
+                System.out.println(++count + "-> " + ans);
             return;
         }
         else if(j==arr[0].length-1)
@@ -164,7 +241,7 @@ public class Lecture_17
     public static void main(String[] args)
     {
         int n=4;
-        boolean[][] arr=new boolean[n][n];
-        knight(arr,0,0,0," ");
-    }
+        boolean[][] arr=new boolean[3][3];
+        knight(arr,0,0,0,"");
+    }*/                                                                    //REVIEWED.
 }

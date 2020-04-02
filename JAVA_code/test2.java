@@ -1,46 +1,80 @@
-import java.util.*;
-public class test2 {
 
-    public static int getSetBitsCount(int n) {
-        int count = 0;
-        while(n != 0) {
-            n = (n & (n - 1));
-            count++;
+import java.util.*;
+
+// Warning: Printing unwanted or ill-formatted data to output will cause the test cases to fail
+
+class test2 {
+    
+    public static boolean possible(int[] arr,int mid, int m) {
+        System.out.print("hello" + " " + mid + " ->");
+        
+        int sum = 0;
+        int cm = 0;
+        for(int i = 0; i < arr.length; i++) {
+            if(sum + arr[i] <= mid) {
+                sum += arr[i];
+            }
+            else {
+                System.out.print(sum + ", ");
+                sum = 0;
+                i--;
+                cm++;
+            }
         }
-        return count;
+        System.out.println(sum);
+
+        if(m >= cm) {
+            // System.out.println( true);
+            return true;
+        }
+        // System.out.println(false);
+        return false;
     }
 
-    public static void main(String[] args) {
+    public static int binary(int[] arr,int m, int l, int r) {
+        int res = -1;
+        while(l <= r) {
+            int mid = l + (r - l)/2;
+            
+            if(possible(arr, mid, m) == true) {
+                // System.out.println(true);
+                r = mid - 1;
+                res = mid;
+            }
+            else {
+                // System.out.println(false);
+                l = mid + 1;
+            }
+
+        }
+        return res;
+    }
+
+    public static void main(String args[] ) throws Exception {
+        
         Scanner scn = new Scanner(System.in);
+
         int t = scn.nextInt();
 
         while(t-- != 0) {
             int n = scn.nextInt();
-            int q = scn.nextInt();
-            
+            int m = scn.nextInt();
+
             int[] arr = new int[n];
-            for(int i = 0; i < n; i++) {
+            int min = Integer.MAX_VALUE;
+            int sum = 0;
+            for(int i =0; i < n; i++) {
                 arr[i] = scn.nextInt();
-            }
-
-            for(int i = 0; i < q; i++) {
-                int p = scn.nextInt();
-                int odd = 0;
-                int even = 0;
-
-                for(int j = 0; j < arr.length; j++) {
-                    int res = getSetBitsCount(arr[j] ^ p);
-
-                    System.out.println(res);
-                    if(res % 2 == 0) {
-                        even++;
-                    }
-                    else {
-                        odd++;
-                    }
+                if(arr[i] < min ) {
+                    min = arr[i];
                 }
-                System.out.println(even + " " + odd);
+                sum += arr[i];
             }
+
+            // System.out.println(min + ", " + sum);
+
+            System.out.println(binary(arr, m, min, sum));
         }
+
     }
 }

@@ -72,14 +72,15 @@ public class Lecture_16
 
 
 
-    /*public static void money_permu(int total,int so_far,int[] arr,String ans)
+    /*public static void money_permu(int total,int so_far,int[] arr,String ans)             //TO get coin change permutation
     {   
         if(so_far==total)
         {
             System.out.println(ans);
             return;
         }
-        for(int i=0;i<4;i++)
+
+        for(int i=0;i<arr.length;i++)
         {
             if(arr[i]<=total-so_far)
             {   
@@ -88,16 +89,34 @@ public class Lecture_16
         }
     }
     
-
-
-
-    public static void money_combi(int total,int so_far,int[] arr,String ans)
-    {
-        
-    }
     public static void main(String[] args)
     {
         int[] arr={2,3,5,6};
         money_permu(7,0,arr,"");
-    }*/
+    }*/                                                             //REVIEWED.
+
+
+
+
+    
+    /*public static void money_combi(int total,int so_far, int idx,int[] arr,String ans)            //TO get coin change combination.
+    {
+        if(total == so_far) {
+            System.out.println(ans);
+            return;
+        }
+
+        for(int i = idx; i < arr.length; i++) {
+            if(so_far + arr[i] <= total) {
+                money_combi(total, so_far + arr[i], i, arr, ans + arr[i]);
+            }
+        }
+    }
+
+
+    public static void main(String[] args)
+    {
+        int[] arr={2,3,5,6};
+        money_combi(7, 0, 0, arr, "");
+    }*/                                                       //REVIEWED.
 }
