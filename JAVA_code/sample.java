@@ -1,79 +1,50 @@
-import java.util.*;
+import java.util.ArrayList;
 public class sample{
+    
+    public static void downHeapify(int[] arr,int parIdx,int ei,boolean isMax){ //logn
+        int maxidx=parIdx;
+        int lci=2*parIdx+1;
+        int rci=2*parIdx+2;
 
-    static class node implements Comparable<node>{
-        int data;
-        int idx;
-
-        node(int d, int i) {
-            this.data = d;
-            this.idx = i;
-        }
-
-        public int compareTo(node d1) {
-            return this.data - d1.data;
+        if(lci<=ei && compareTo(arr,lci,maxidx,isMax)) maxidx=lci;
+        if(rci<=ei&& compareTo(arr,rci,maxidx,isMax)) maxidx=rci;
+        
+        if(parIdx!=maxidx){
+            swap(arr,maxidx,parIdx);
+            downHeapify(arr,maxidx,ei,isMax);
         }
     }
 
-
-    public static int getAnswer(int e, node[] power, int[] bonus) {
-        boolean[] check = new boolean[power.length];
-        int r = 0;
-
-        for(int i = 0 ; i < power.length; i++) {
-            if(power[i].data > e) {
-                return r;
-            }
-
-            
-            while(power[i].data == power[i + 1].data)
-
-
-            r++;
-            e += bonus[power[i].idx];
-        }
-
-        return r;
+    public static void swap(int[] arr,int a,int b){
+        int temp=arr[a];
+        arr[a]=arr[b];
+        arr[b]=temp;
     }
 
-
-    public static void main(String[] args) {
-        Scanner scn = new Scanner(System.in);
-
-        int n = scn.nextInt();
-        int e = scn.nextInt();
-
-        node[] power = new node[n];
-
-        for(int i = 0; i < n; i++) {
-            int temp = scn.nextInt();
-            power[i] = new node(temp, i);
-        }
-
-        int[] bonus = new int[n];
-        for(int i = 0; i < n; i++) {
-            bonus[i] = scn.nextInt();
-        }
-
-        Arrays.sort(power);
-
-        int result = getAnswer(e, power, bonus);
-
-        System.out.println(result);
+    public static boolean compareTo(int[] arr,int ci,int pi,boolean isMax){
+        if(isMax) return arr[ci]>arr[pi];
+        else return arr[ci]<arr[pi];
     }
+
+    public static void main(String[] args){
+        int[] arr={6,8,2,-4,18,4,10,9,8,9,16,15,13,11,-9,-10};
+        int ei=arr.length-1;
+        boolean isMax=true;
+        for(int i=ei;i>=0;i--){
+            downHeapify(arr,i,ei,isMax);
+        }
+
+        while(ei!=0){
+            swap(arr,0,ei);
+            ei--;
+            downHeapify(arr,0,ei,isMax);
+        }
+
+        for(int ele: arr) System.out.print(ele+" ");
+
+
+     }
+
+
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

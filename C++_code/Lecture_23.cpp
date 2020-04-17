@@ -1,20 +1,23 @@
+                                            //LECTURE-23
+                                            //july-19
+
 #include<iostream>
 #include<vector>
 #include<string>
 #include<queue>
-
 using namespace std;
 
+
+//PRE- requist for graph
+
 class Edge                                   
-{                                               //HERE, we are just going to create
-    public:                                     //a graph data by using class and 
-        int nebr;                               //a vector of vector of class.
+{                                               
+    public:                                     
+        int nebr;                               
         int wt; 
 };
 
-vector<vector<Edge>> graph;                      //DATA TYPE TO REPRESENT GRAPH.
-
-
+vector<vector<Edge>> graph;             //DATA TYPE TO REPRESENT GRAPH.
 
 void addEdge(int v1,int v2, int wt)                    //it will add the edge in the graph data
 {                                                    
@@ -29,38 +32,91 @@ void addEdge(int v1,int v2, int wt)                    //it will add the edge in
     graph[v2].push_back(e2);    
 }
 
+void display() {
+    for(int i = 0; i < graph.size(); i++) {
+        cout<<i<<" -> ";
+        for(int j = 0; j < graph[i].size(); j++) {
+            cout<<"[ "<<graph[i][j].nebr<<", "<<graph[i][j].wt<<"] ";
+        }
+        cout<<"\n";
+    }
+}
 
-/*vector<bool> visited (graph.size(),false);
-bool BSF_traversal(int src,int des)
+//REVIEWED.
+
+
+
+
+
+//1. BFS traversal, over the graph.
+
+vector<bool> visited (7, false);               //we have to give const. size to visited vector, as
+bool BSF_traversal(int src,int des)            //if we use graph.size(), it may not have initialize it's size.
 {
     queue<int> q;
     q.push(src);
     while(q.size()>0)
     {
-        int rem=q.front();
-        q.pop();
-        visited[rem]=true;
+        int rem=q.front();          //GET
+        
+        q.pop();                    //REMOVE
+        
+        visited[rem]=true;          //MARK
 
-        if(rem==des)
+        if(rem==des)                //WORK
             return true;
 
-        for(int i=0;i<graph[rem].size();i++)
+        for(int i=0;i<graph[rem].size();i++)     //ADD NEIGHBOUR.
         {
-            Edge n=graph[rem][i];
+            Edge n=graph[rem][i];                  //here, some of vertices will be added multiple times.
             if(visited[n.nebr]==false)
                 q.push(n.nebr);
         }
     }
 
     return false;
+}
 
-}*/
-
-
-
+//REVIEWED.
 
 
-/*vector<string> gcc()
+
+
+
+
+
+//2. Get-Connected-Components.     (for a graph), (gscc is a helping function)
+
+string gscc(int i,vector<bool> &visited)        //Get-selected-connnected-conponents.
+{   
+    string res="";
+    queue<int> q;
+    visited[i] = true;
+    q.push(i);
+
+    while(q.size()>0)
+    {
+        int rem=q.front();       //get
+        q.pop();                 //remove
+                                 //No need to mark, as we have done marking pro-actively.
+
+        res+=to_string(rem);     //work
+
+        for(int j=0;j<graph[rem].size();j++)      //add nebr
+        {
+            Edge n=graph[rem][j];
+            if(visited[n.nebr]==false) {
+                visited[n.nebr] = true;
+                q.push(n.nebr);
+            }
+        }
+    }
+    return res;
+}
+
+
+
+vector<string> gcc()            //actual function to get connected components.
 {
     vector<string> comps;
     vector<bool> visited(graph.size(),false);
@@ -72,45 +128,95 @@ bool BSF_traversal(int src,int des)
             string comp=gscc(i,visited);
             comps.push_back(comp);
         }
-
     }
-
     return comps;
 }
 
-string gscc(int i,vector<bool> &visited)
-{   
-    string res="";
-    queue<int> q;
-    q.push(i);
+//REVIEWED.
 
-    while(q.size()>0)
-    {
-        int rem=q.front();
-        q.pop();
 
-        if(visited[rem]==true)
-        {    
-            continue;
+
+
+
+
+
+//3. FIRE_STROM_PROBLEM        (implementation of bfs) 
+
+class point {
+    public:
+        int x = -1;
+        int y = -1;
+        int t = -1;
+
+        point(int x, int y, int t) {
+            this -> x = x;
+            this -> y = y;
+            this -> t = t;
+        }
+};
+
+
+void fireStrom(int board[][5], int rSize, int cSize) {
+    queue<point> que;                                   //here, que will have multiple dupliacte
+    for(int i = 0; i < rSize; i++) {                    //items, as we did'nt mark and check pro-actively.
+        for(int j = 0; j < cSize; j++) {
+            if(board[i][j] == 2) {
+                point p1(i, j, 0);
+                que.push(p1);
+            }
+        }
+    }    
+
+    int totalTime = -1;          //variable to get total time for buring max.
+
+    while(que.size() != 0) {
+        point p = que.front();                 //GET
+        que.pop();                             //REMOVE
+
+        board[p.x][p.y] = 2;                    //MARK
+
+        totalTime = p.t;                       //work 
+
+        if(p.x - 1 >= 0 && board[p.x - 1][p.y] == 1) {              //add nebrs
+            point temp(p.x - 1, p.y, p.t + 1);
+            que.push(temp);
+        }
+        if(p.y + 1 < cSize && board[p.x ][p.y + 1] == 1) {
+            point temp(p.x, p.y + 1, p.t + 1);
+            que.push(temp);
+        }
+        if(p.x + 1 < rSize && board[p.x + 1][p.y] == 1) {
+            point temp(p.x + 1, p.y, p.t + 1);
+            que.push(temp);
+        }
+        if(p.y - 1 >= 0 && board[p.x][p.y - 1] == 1) {
+            point temp(p.x, p.y - 1, p.t + 1);
+            que.push(temp);
         }
 
-        visited[rem]=true;
-        res+=to_string(rem);
-
-        for(int j=0;j<graph[rem].size();j++)
-        {
-            Edge n=graph[rem][j];
-            
-            if(visited[n.nebr]==false)
-                q.push(n.nebr);
-        }
     }
 
-    return res;
+    cout<<"Time requried for max burning = "<<totalTime<<"\n";
+
+    for(int i = 0; i < rSize; i++) {             //printing the last condition of board.
+        for(int j = 0; j < cSize; j++) {
+            cout<<board[i][j]<<" ";
+        }
+        cout<<"\n";
+    }
 }
+
+//REVIEWED.
+
+
+
+
+
 
 int main()
 {
+    //pre-requist for graph
+
     graph.push_back(vector<Edge>()); //0
     graph.push_back(vector<Edge>()); //1
     graph.push_back(vector<Edge>()); //2
@@ -124,103 +230,56 @@ int main()
     addEdge(2,3,10);
     addEdge(0,3,40);
     addEdge(3,4,2);
+    // addEdge(2,5,5);
     addEdge(4,5,3);
     addEdge(5,6,3);
     addEdge(4,6,8);
 
-    //cout<<BSF_traversal(0,6);
+    // display();
+    
+    //reviewed.
+
+
+
+    //1. BFS searching.
+    
+    /*
+    cout<<BSF_traversal(0,6)<<"\n";
+    */
+
+   //reviewed.
     
 
-    vector<string> comps=gcc();
+
+
+    //2. GET_CONNECTED_COMPONENTS of a graph. 
+    
+    /*vector<string> comps = gcc();
     for(int i=0;i<comps.size();i++)
     {
         cout<<comps[i]<<endl;
     }
-}*/                                           //REVIEWED.
+    */
+
+    //reviewed.
+
+
+
+    
+    //3. FIRE_STROM_PROBLEM               (implementation of bfs) 
+    
+    /*
+    int board[][5] = {
+        {2,1,0,2,1},
+        {1,0,1,2,1},
+        {1,0,0,2,1}
+    };
+    fireStrom(board, 3, 5);
+    */
+
+    //reviewed.
 
 
 
 
-
-/*string gscc(int i,vector<bool> &visited)
-{   
-    string res="";
-    queue<int> q;
-    q.push(i);
-
-    while(q.size()>0)
-    {
-        int rem=q.front();
-        q.pop();
-
-        if(visited[rem]==true)
-        {    
-            continue;
-        }
-
-        visited[rem]=true;
-        res+=to_string(rem);
-
-        for(int j=0;j<graph[rem].size();j++)
-        {
-            Edge n=graph[rem][j];
-            
-            if(visited[n.nebr]==false)
-                q.push(n.nebr);
-        }
-    }
-
-    return res;
 }
-
-
-vector<string> gcc()
-{
-    vector<string> comps;
-    vector<bool> visited(graph.size(),false);
-
-    for(int i=0;i<graph.size();i++)
-    {
-        if(visited[i]==false)
-        {
-            string comp=gscc(i,visited);
-            comps.push_back(comp);
-        }
-
-    }
-
-    return comps;
-}
-
-
-int main()
-{   
-    int n=10;
-    vector<int> v1 {2,3,8,1,6,4};
-    vector<int> v2 {9,8,7,7,5,2};
-
-    for(int i=0;i<n;i++)
-    {   
-        graph.push_back(vector<Edge>());
-    }
-
-    for(int e=0;e<v1.size();e++)
-    {
-        addEdge(v1[e],v2[e],1);
-    }
-
-    vector<string> nations=gcc();
-    int teams=0;
-
-    for(int i=0;i<nations.size();i++)
-    {
-        for(int j=i+1;j<nations.size();j++)
-        {
-            teams+=nations[i].size()*nations[j].size();
-        }
-    }
-
-    cout<<teams<<endl;
-
-    return 0;
-}*/

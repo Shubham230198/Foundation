@@ -1,10 +1,41 @@
 import java.util.*;
-public class test {
+public class test{
+    public static boolean fun() {
+
+        int[] count = new int[10];
+
+        Scanner scn = new Scanner(System.in);
+        int n = scn.nextInt();
+
+        for(int i = 0; i < n ; i++) {
+            int temp = scn.nextInt();
+            count[temp]++;
+        }
+
+        int teamSize = -1;
+
+        for(int i = 0; i < count.length; i++) {
+            if(count[i] == 1) {
+                return false;
+            }
+            else if(count[i] != 0) {
+                if(teamSize == -1) {
+                    teamSize = count[i];
+                }
+                else {
+                    if(teamSize != count[i]) {
+                        return false;
+                    }
+                }
+
+            }
+        }
+
+        return true;
+    }
+
+
     public static void main(String[] args) {
-
-        Set<Integer> res =  new HashSet<>(Arrays.asList(new Integer[] {1,2,3,4,5}));
-        Set<Integer> res1 =  new TreeSet<>(Arrays.asList(new Integer[] {5,2,3,1, 4}));
-
-        System.out.println(res.equals(res1));
+        System.out.println(fun());
     }
 }

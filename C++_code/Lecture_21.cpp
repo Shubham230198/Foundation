@@ -1,3 +1,8 @@
+                                                    //Lecture-21
+                                                    //july-17
+
+                                                    //GRAPH IS STARTED.
+
 #include<iostream>
 #include<vector>
 #include<string>
@@ -72,8 +77,8 @@ bool haspath(int s,int d,vector<bool> & visited)                    //HAS PATH F
 
 void allPath(int s,int d,vector<bool> &visited,string ans,int weight)          //TO print all posible paths 
 {                                                                              //from one vertex to another.
-    if(s==d)                                                                   //(not efficient method)
-    {
+    if(s==d)                                                                   //(not efficient method as new
+    {                                                                           //string is created with every call).
         cout<<ans<<d<<" @@@ "<<weight<<endl;
         return;
     }
@@ -89,7 +94,7 @@ void allPath(int s,int d,vector<bool> &visited,string ans,int weight)          /
         }
     }
     visited[s]=false;
-}
+}                                                                       //REVIWED.
 
 
 
@@ -113,7 +118,8 @@ void allPath2(int s,int d,vector<bool> &visited,string ans,int weight)          
         }
     }
     visited[s]=false;
-}
+}                                                                             //REVIWED.
+
 
 
 vector<bool> visited (7,false);
@@ -136,15 +142,19 @@ int main()
     addEdge(5,6,3);
     addEdge(4,6,8);
 
+
     //display();                                      //to display graph data.
 
+
     //cout<<haspath(3,4,visited);                     //to show if path posibble between two vertex.
+
     
     //allPath(0,6,visited,"",0);                          //to print all posibble paths along with there total weight.
 
     
     //string s;                                             //to print all posibble paths along wiht there total weight.
     //allPath2(0,6,visited,s,0);
-    
+
+
     return 0;
 }                                              //REVIEWED.

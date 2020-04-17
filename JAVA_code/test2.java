@@ -1,80 +1,69 @@
-
 import java.util.*;
+public class test2 {
 
-// Warning: Printing unwanted or ill-formatted data to output will cause the test cases to fail
+    public static void getZigZag(int[][] arr) {
+        int r = arr.length;
+        int c = arr[0].length;
+        boolean flag = false;
 
-class test2 {
-    
-    public static boolean possible(int[] arr,int mid, int m) {
-        System.out.print("hello" + " " + mid + " ->");
-        
-        int sum = 0;
-        int cm = 0;
-        for(int i = 0; i < arr.length; i++) {
-            if(sum + arr[i] <= mid) {
-                sum += arr[i];
-            }
-            else {
-                System.out.print(sum + ", ");
-                sum = 0;
-                i--;
-                cm++;
-            }
-        }
-        System.out.println(sum);
-
-        if(m >= cm) {
-            // System.out.println( true);
-            return true;
-        }
-        // System.out.println(false);
-        return false;
-    }
-
-    public static int binary(int[] arr,int m, int l, int r) {
-        int res = -1;
-        while(l <= r) {
-            int mid = l + (r - l)/2;
-            
-            if(possible(arr, mid, m) == true) {
-                // System.out.println(true);
-                r = mid - 1;
-                res = mid;
-            }
-            else {
-                // System.out.println(false);
-                l = mid + 1;
-            }
-
-        }
-        return res;
-    }
-
-    public static void main(String args[] ) throws Exception {
-        
-        Scanner scn = new Scanner(System.in);
-
-        int t = scn.nextInt();
-
-        while(t-- != 0) {
-            int n = scn.nextInt();
-            int m = scn.nextInt();
-
-            int[] arr = new int[n];
-            int min = Integer.MAX_VALUE;
-            int sum = 0;
-            for(int i =0; i < n; i++) {
-                arr[i] = scn.nextInt();
-                if(arr[i] < min ) {
-                    min = arr[i];
+        for(int l = 1; l <= r + c - 1; l++) {
+            if(l <= r) {
+                if(flag == false) {
+                    for(int i = r - l, j = 0; i < r && j < c; i++, j++) {
+                        System.out.print(arr[i][j] + " ");
+                    }
+                    System.out.println();
+                    flag = true;
                 }
-                sum += arr[i];
+                else {
+                    for(int i = r - 1, j = l - 1; i >= r - l && j >= 0; i-- , j--) {
+                        System.out.print(arr[i][j] + " ");
+                    }
+                    System.out.println();
+                    flag = false;
+                }
+                    
             }
-
-            // System.out.println(min + ", " + sum);
-
-            System.out.println(binary(arr, m, min, sum));
+            else {
+                if(flag == false) {
+                    for(int i = 0, j = l - r; i < r && j < c; i++, j++) {
+                        System.out.print(arr[i][j] + " ");
+                    }
+                    System.out.println();
+                    flag = true;
+                }
+                else {
+                    for(int j = c - 1, i = r + c - 1 - l ; i >= 0 && j >= 0; i--, j--) {
+                        System.out.print(arr[i][j] + " ");
+                    }
+                    System.out.println();
+                    flag = false;
+                }
+            }
         }
+    }
+    public static void main(String[] args) {
+        // int[][] arr = {
+        //     {1,2,3,4},
+        //     {5,6,7,8},
+        //     {9,10,11,12},
+        //     {13,14,15,16},
+        //     {17,18,19,20}
+        // };
 
+        int[][] arr = {
+            {1,2,3},
+            {4,5,6},
+            {7,8,9},
+            {10,11,12},
+            {13,14,15}
+        };
+
+        // int[][] arr = {
+        //     {1,2,3,4,5,6},
+        //     {7,8,9,10,11,12},
+        //     {13,14,15,16,17,18}
+        // };
+        getZigZag(arr);
     }
 }

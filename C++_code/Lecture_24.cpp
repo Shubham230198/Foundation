@@ -1,9 +1,13 @@
+                                            //LECTURE-24
+                                            //JULY-20
+
 #include<iostream>
 #include<vector>
 #include<string>
 #include<queue>
-
 using namespace std;
+
+// PRE-REQUIST for graph
 
 class Edge                                   
 {                                               //HERE, we are just going to create
@@ -28,29 +32,82 @@ void addEdge(int v1,int v2, int wt)                    //it will add the edge in
     graph[v2].push_back(e2);    
 }
 
+//REVIEWED.
 
 
-/*bool isComponentCyclic(int p,vector<bool> &visited)           //TO CHECK IF GRAPH'S component IS CYCLIC.
+
+
+
+
+//1.IS_CONNECTED.                   (to check if the graph is connected)
+
+string gscc(int s, vector<bool>& visited) {              //helping gscc function.
+    string str = "";
+    queue<int> que;
+    que.push(s);
+
+    while(que.size() != 0) {
+        int rem = que.front();       //GET
+        que.pop();                   //REMOVE
+
+        visited[rem] = true;        //MARK
+
+        str += rem;                 //work
+
+        for(int i = 0; i < graph[rem].size(); i++) {        //add nebr.
+            Edge e = graph[rem][i];
+            if(visited[e.nebr] == false) {
+                que.push(e.nebr);
+            }
+        }
+    }
+    
+    return str;
+}
+
+
+bool isConnected(vector<bool>& visited) {
+    string component1 = gscc(0, visited);                  //calling the component, containing the 0th vertex.
+
+    for(int i = 1; i < graph.size(); i++) {
+        if(visited[i] == false)                           //after 1 conponent, if anyone is left unvisited, 
+            return false;                                  //graph is not connected.
+    }
+
+    return true;
+} 
+
+//REVIEWED.
+
+
+
+
+
+
+
+
+//2. IS_CYCLIC , (to check if a graph contains a cycle)
+
+bool isComponentCyclic(int p,vector<bool> &visited)           //TO CHECK IF GRAPH'S component IS CYCLIC.
 {
-    queue<int> q;
-    q.push(p);
+    queue<int> q;                       //here, we did't used proactive method,(as that won't work here)
+    q.push(p);                          //so queue will have duplicate.
 
     while(q.size()>0)
     {
-        int rem =q.front();
-        q.pop();
+        int rem = q.front();                    //GET
+        q.pop();                                //REMOVE
 
-        if(visited[rem]==true)
-        {
+        if(visited[rem]==true)                  //WORK (if any item of que, is already visited
+        {                                       //this indicates a cycle)
             return true;
         }
 
-        visited[rem]=true;
+        visited[rem]=true;                      //MARK
 
-        for(int i=0;i<graph[rem].size();i++)
+        for(int i=0;i<graph[rem].size();i++)    //ADD NEBR
         {
             Edge n=graph[rem][i];
-
             if(visited[n.nebr]==false)
             {
                 q.push(n.nebr);
@@ -62,11 +119,10 @@ void addEdge(int v1,int v2, int wt)                    //it will add the edge in
 }
 
 
-bool isCyclic()                                   //to check if graph is cyclic.
-{
-    vector<bool> visited (graph.size(),false);
-    
-    for(int i=0;i<graph.size();i++)
+
+bool isCyclic(vector<bool>& visited)                                   //to check if graph is cyclic.
+{   
+    for(int i=0;i<graph.size();i++)                      
     {
         if(visited[i]==false)
         {
@@ -79,13 +135,18 @@ bool isCyclic()                                   //to check if graph is cyclic.
     }
 
     return false;
-}*/                                                  //REVIEWED.
+}                                                  //REVIEWED.
 
 
 
 
 
-/*class BiPolar                                       //TO CHECK IF GRAPH'S COMPONENT IS BIPARTITE.
+
+
+
+//3. IS_BIPARTITE         (to check if a graph bigraph)
+
+class BiPolar                                       //TO CHECK IF GRAPH'S COMPONENT IS BIPARTITE.
 {
     public:
         int vertex;
@@ -93,21 +154,21 @@ bool isCyclic()                                   //to check if graph is cyclic.
 };
 
 
-bool isComponentBiPartite(int p,vector<int> &visited)
+bool isComponentBiPartite(int p,vector<int> &visited)      //to check over a specific component
 {   
     BiPolar bp;
     bp.vertex=p;
-    bp.level=1;
+    bp.level=1;                                            //starting the level from 1.
 
     queue<BiPolar> q;
     q.push(bp);
 
-    while(q.size()>0)
+    while(q.size()>0)                               //this should be done pro-actively.
     {
-        BiPolar rem=q.front();
-        q.pop();
+        BiPolar rem=q.front();          //GET
+        q.pop();                        //REMOVE
 
-        if(visited[rem.vertex]!=0)
+        if(visited[rem.vertex]!=0)          //WORK
         {   
             int oldLevel=visited[rem.vertex];
             int newLevel=rem.level;
@@ -116,9 +177,9 @@ bool isComponentBiPartite(int p,vector<int> &visited)
                 return false;
         }
 
-        visited[rem.vertex]=rem.level;
+        visited[rem.vertex]=rem.level;          //MARK
 
-        for(int i=0;i<graph[rem.vertex].size();i++)
+        for(int i=0;i<graph[rem.vertex].size();i++)        //ADD NEBR
         {   
                 Edge n=graph[rem.vertex][i];
 
@@ -136,93 +197,101 @@ bool isComponentBiPartite(int p,vector<int> &visited)
 }
 
 
-    bool isBiPartite()                                      //to check if graph is bipartite.
-    {
-        vector<int> visited (graph.size(),0);
-
-        for(int i=0;i<graph.size();i++)
-        {
-            if(visited[i]==0)
-            {
-                bool isBi=isComponentBiPartite(i,visited);
-                if(isBi==false)
-                {
-                    return false;
-                }
-            }
-        }
-        return true; 
-    }*/                                                     //REVIEWED.
-
-
-
-
-
-class bPair
+bool isBiPartite()                                      //to check if graph is bipartite.
 {
-    public:
-        int vertex;
-        int cost;
-        string path;
+    vector<int> visited (graph.size(),0);
 
-        bPair(int v,int c,string p)
-        {
-            this->vertex=v;
-            this->cost=c;
-            this->path=p;
-        }
-
-        bool operator<(const bPair& other) const
-        {
-            return this->cost<other.cost;
-        }
-
-        bool operator>(const bPair& other) const
-        {
-            return this->cost>other.cost;
-        }
-};
-
-
-void dikshtra(int src)
-{   
-    vector<bool> visited (graph.size(),false);
-    bPair bp(src,0,to_string(src));
-
-    priority_queue<bPair, vector<bPair>, greater<bPair>> q;
-    q.push(bp);
-
-    while(q.size()>0)
+    for(int i=0;i<graph.size();i++)
     {
-        bPair rem=q.top();
-        q.pop();
-
-        if(visited[rem.vertex]==true)
+        if(visited[i]==0)
         {
-            continue;
-        }
-        visited[rem.vertex]=true;
-        
-        cout<<rem.vertex<<"@"<<rem.cost<<", "<<rem.path<<endl;
-
-        for(int i=0;i<graph[rem.vertex].size();i++)
-        {
-            Edge n=graph[rem.vertex][i];
-            if(visited[n.nebr]==false)
+            bool isBi=isComponentBiPartite(i,visited);
+            if(isBi==false)
             {
-                bPair bp(n.nebr,rem.cost+n.wt,rem.path+to_string(n.nebr));
-                q.push(bp);
+                return false;
             }
         }
     }
-
-
+    return true; 
 }
+
+//REVIEWED.
+
+
+
+
+
+// class bPair
+// {
+//     public:
+//         int vertex;
+//         int cost;
+//         string path;
+
+//         bPair(int v,int c,string p)
+//         {
+//             this->vertex=v;
+//             this->cost=c;
+//             this->path=p;
+//         }
+
+//         bool operator<(const bPair& other) const
+//         {
+//             return this->cost<other.cost;
+//         }
+
+//         bool operator>(const bPair& other) const
+//         {
+//             return this->cost>other.cost;
+//         }
+// };
+
+
+// void dikshtra(int src)
+// {   
+//     vector<bool> visited (graph.size(),false);
+//     bPair bp(src,0,to_string(src));
+
+//     priority_queue<bPair, vector<bPair>, greater<bPair>> q;
+//     q.push(bp);
+
+//     while(q.size()>0)
+//     {
+//         bPair rem=q.top();
+//         q.pop();
+
+//         if(visited[rem.vertex]==true)
+//         {
+//             continue;
+//         }
+//         visited[rem.vertex]=true;
+        
+//         cout<<rem.vertex<<"@"<<rem.cost<<", "<<rem.path<<endl;
+
+//         for(int i=0;i<graph[rem.vertex].size();i++)
+//         {
+//             Edge n=graph[rem.vertex][i];
+//             if(visited[n.nebr]==false)
+//             {
+//                 bPair bp(n.nebr,rem.cost+n.wt,rem.path+to_string(n.nebr));
+//                 q.push(bp);
+//             }
+//         }
+//     }
+
+// }
+
+
+
+
+
 
 
 
 int main()
 {
+    //PRE_REQUIST for graph
+
     graph.push_back(vector<Edge>()); //0
     graph.push_back(vector<Edge>()); //1
     graph.push_back(vector<Edge>()); //2
@@ -238,12 +307,48 @@ int main()
     addEdge(3,4,2);
     addEdge(4,5,3);
     addEdge(5,6,3);
-    addEdge(4,6,8);
+    // addEdge(4,6,8);
 
-    //cout<<isCyclic();                       //to check if graph has any cyclic component.
+    vector<bool> visited (graph.size(), false);
 
-    //cout<<isBiPartite();                      //to check if graph is bipartite.
+    //reviewed.
+    
 
-    dikshtra(0);
+
+    
+
+
+    //1. IS_CONNECTED                                       (using gscc as helping function)
+    
+    /*
+    cout<<"the graph is connected = "<<isConnected(visited);
+    */
+
+    //reviewed.
+
+
+
+
+    
+    //2. IS_CYCLIC, (to check if a graph contains a cycle)
+                    //(implements BSF, but can't use its pro-active method).    
+    /*   
+    cout<<"this graph contains cycle = "<<isCyclic(visited); 
+    */
+
+    //reviewed.
+
+
+
+    //3. IS_BIPARTITE     (to check if graph is bigraph, without being pro-active)
+
+    cout<<"this graph is bi-graph = "<<isBiPartite();     //this could be done proactively.
+
+    //reviewed.
+
+
+
+
+    // dikshtra(0);
     return 0;
 }

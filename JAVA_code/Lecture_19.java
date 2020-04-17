@@ -110,7 +110,7 @@ public class Lecture_19
 
         getmapping(unique,map,check);
    
-    }                                                  //REVIEWED.
+    }*/                                                  //REVIEWED.
 
 
 
@@ -121,7 +121,7 @@ public class Lecture_19
 
 
     /*public static boolean issafe(int[][] board,int i, int j, int option)                        //SUDOKU PROBLEM
-    {
+    {                                                                                             //O(81 ^ 9)
         for(int jj=0;jj<board[0].length;jj++)
         {
             if(board[i][jj]==option)
@@ -227,6 +227,6 @@ public class Lecture_19
         };
 
         sudoku(board,0,0);
-    }*/                                                 //REVIEWED.
+    }*/                                                //REVIEWED.
     
 }
