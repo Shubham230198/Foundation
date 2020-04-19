@@ -1,9 +1,15 @@
+                                                //Lecture_25
+                                                //July-21
+
 #include<iostream>
 #include<string>
 #include<vector>
 #include<queue>
 #include<stack>
 using namespace std;
+
+
+// PRE-REQUIST for graph
 
 class Edge                                   
 {                                               //HERE, we are just going to create
@@ -14,7 +20,8 @@ class Edge
 
 vector<vector<Edge>> graph;                      //DATA TYPE TO REPRESENT GRAPH.
 
-/*void addEdge(int v1,int v2, int wt)                    //it will add the edge in the graph data
+
+void addEdge(int v1,int v2, int wt)                    //it will add the edge in the graph data
 {                                                    
     Edge e1;
     e1.nebr=v2;
@@ -26,6 +33,16 @@ vector<vector<Edge>> graph;                      //DATA TYPE TO REPRESENT GRAPH.
     e2.wt=wt;
     graph[v2].push_back(e2);    
 }
+
+//REVIEWED.
+
+
+
+
+
+
+
+//1. 
 
 void addEdge(vector<vector<Edge>>& mst,int v,int av,int c)            //PRIMS ALGORITHM.
 {
@@ -40,7 +57,7 @@ void addEdge(vector<vector<Edge>>& mst,int v,int av,int c)            //PRIMS AL
     mst[av].push_back(e2);
 }
 
-class pPair
+class pPair                //primes pair class.
 {
     public:
     int vertex;
@@ -126,6 +143,8 @@ void prims()                                      //prims algorithm.(to find
 
 int main()
 {
+    //PRE_REQUIST for graph
+
     graph.push_back(vector<Edge>()); //0
     graph.push_back(vector<Edge>()); //1
     graph.push_back(vector<Edge>()); //2
@@ -134,17 +153,26 @@ int main()
     graph.push_back(vector<Edge>()); //5
     graph.push_back(vector<Edge>()); //6
 
-    addEdge(0,1,20);
+    addEdge(0,1,10);
     addEdge(1,2,10);
-    addEdge(2,3,20);
+    addEdge(2,3,10);
     addEdge(0,3,40);
     addEdge(3,4,2);
     addEdge(4,5,3);
     addEdge(5,6,3);
-    addEdge(4,6,8);
+    // addEdge(4,6,8);
+
+    vector<bool> visited (graph.size(), false);
+
+    //reviewed.
+    
+
+
+
+
 
     prims();
-}*/                                         //REVIEWED.
+}                                         //REVIEWED.
 
 
 

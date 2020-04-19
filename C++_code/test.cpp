@@ -1,85 +1,64 @@
 #include <bits/stdc++.h>
 using namespace std;
+int x = 1;
+int y = 1;
 
-int getFactors(int n) {
-    int count = 0;
-
-    for(int i = 1; i * i <= n; i++) {
-        if(n % i == 0) {
-            if(i * i == n) count++;
-            else count += 2;
-        }
-    }
-    return count % 1000000007;
-}
-
-
-class node {
-	public :
-	int v1 = 0;
-	int pdt = 0;
-
-	node(int v, int p ){
-		this->v1 = v;
-		this->pdt = p;
-	}	
-};
-
-
-int getDfs(vector<int> tree[], int cost[], int u, int v) {	
-	unordered_set<int> set;
-	set.insert(u);
-
-	queue<node> que;
-	node temp = node(u, cost[u] % (1000000007));
-	que.push(temp);
-
-	while(que.size() != 0) {
-		temp = que.front();
-		que.pop();
-
-		if(temp.v1 == v) {
-			break;
+int getAnswer(string s, int idx) {
+	int i = idx;
+	for(; i < s.length() && s[i] != ')'; i++) {
+		if(s[i] == 'N') {
+			if(y == 1)
+				y = 1000000000;
+			else
+				y--;
 		}
-
-		for(int i = 0; i < tree[temp.v1].size(); i++) {
-			int neig = tree[temp.v1][i];
-			if(set.count(neig) == 0) {
-				set.insert(neig);
-				node ne = node(neig, (temp.pdt * cost[neig]) % (1000000007));
-				que.push(ne);
+		else if(s[i] == 'E') {
+			if(x == 1000000000)
+				x = 1;
+			else
+				x++;
+		}
+		else if(s[i] == 'W') {
+			if(x == 1)
+				x = 1000000000;
+			else
+				x--;
+		}
+		else if(s[i] == 'S') {
+			if(y == 1000000000)
+				y = 1;
+			else
+				y++;
+			
+		}
+		else if(s[i] >= '1' && s[i] <= '9') {
+			int num = 0;
+			while(s[i] != '(') {
+				int n = s[i] - '0';
+				num = num * 10 + n;
+				i++;
 			}
+			i++;
+			int a = 0;
+			for(int o = 1; o <= num; o++)
+				a = getAnswer(s, i);
+			i = a ;
 		}
-
 	}
 
-	int factors = getFactors(temp.pdt % 1000000007);
-	return factors % 1000000007;
+	return i ;
 }
 
 
-int main(int argc, char** argv) {
-    int t; cin>>t;
-    while(t-- != 0) {
-        int n; cin>>n;
-        vector<int> tree[n];
-
-        for(int i = 1; i < n; i++) {
-            int u,v; cin>>u>>v;
-            tree[u - 1].push_back(v - 1);
-            tree[v - 1].push_back(u - 1);
-        }
-
-        int cost[n];
-        for(int i = 0; i < n; i++) {
-            cin>>cost[i];
-        }
-    
-        int q; cin>>q;
-        for(int i = 0; i < q; i++) {
-            int u,v; cin>>u>>v;
-            cout<<getDfs(tree, cost, u - 1, v - 1)<<"\n";
-        }
-
-    }
+int main() {
+	int t; cin>>t;
+	for(int ct = 1; ct <= t; ct++) {
+		string s; cin>>s;
+		x = 1;
+		y = 1;
+		
+		getAnswer(s, 0);
+		
+		cout<<x<<", "<<y<<"\n";
+	}
 }

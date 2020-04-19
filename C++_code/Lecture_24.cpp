@@ -221,65 +221,67 @@ bool isBiPartite()                                      //to check if graph is b
 
 
 
-// class bPair
-// {
-//     public:
-//         int vertex;
-//         int cost;
-//         string path;
-
-//         bPair(int v,int c,string p)
-//         {
-//             this->vertex=v;
-//             this->cost=c;
-//             this->path=p;
-//         }
-
-//         bool operator<(const bPair& other) const
-//         {
-//             return this->cost<other.cost;
-//         }
-
-//         bool operator>(const bPair& other) const
-//         {
-//             return this->cost>other.cost;
-//         }
-// };
 
 
-// void dikshtra(int src)
-// {   
-//     vector<bool> visited (graph.size(),false);
-//     bPair bp(src,0,to_string(src));
+//4. DIKSTRA_ALGORITHM       (to find min-cost path from a source to all other vertices)
 
-//     priority_queue<bPair, vector<bPair>, greater<bPair>> q;
-//     q.push(bp);
+class Dpair
+{
+    public:
+        int vertex;
+        int cost;
+        string path;
 
-//     while(q.size()>0)
-//     {
-//         bPair rem=q.top();
-//         q.pop();
+        Dpair(int v,int c,string p)                 //by class will provide default constructor,
+        {                                           //so we just need to specify parametrized 
+            this->vertex=v;                         //constructor.(as pq needs default constructor)
+            this->cost=c;
+            this->path=p;
+        }
 
-//         if(visited[rem.vertex]==true)
-//         {
-//             continue;
-//         }
-//         visited[rem.vertex]=true;
+        bool operator>(const Dpair& other) const       //as we need min priority queue.
+        {
+            return this->cost>other.cost;
+        }
+};
+
+
+
+void dikshtra(int src)
+{   
+    vector<bool> visited (graph.size(),false);
+    Dpair bp(src,0,to_string(src));      //src Dpair.
+
+    priority_queue<Dpair, vector<Dpair>, greater<Dpair>> q;       //we have to use greater funtion, because by default
+    q.push(bp);                                                   //pq in cpp is max-pq, but we need min-pq in this question.
+
+    while(q.size()>0)
+    {
+        Dpair rem=q.top();                      //GET
+        q.pop();                                //REMOVE
+
+        if(visited[rem.vertex]==true)     //if already mark, thn continue,because
+        {                                 //shortest path has already visited.
+            continue;
+        }
+
+        visited[rem.vertex]=true;               //MARK
         
-//         cout<<rem.vertex<<"@"<<rem.cost<<", "<<rem.path<<endl;
+        cout<<rem.vertex<<"@"<<rem.cost<<", "<<rem.path<<endl;      //WORK.
 
-//         for(int i=0;i<graph[rem.vertex].size();i++)
-//         {
-//             Edge n=graph[rem.vertex][i];
-//             if(visited[n.nebr]==false)
-//             {
-//                 bPair bp(n.nebr,rem.cost+n.wt,rem.path+to_string(n.nebr));
-//                 q.push(bp);
-//             }
-//         }
-//     }
+        for(int i=0;i<graph[rem.vertex].size();i++)                 //ADD NEBR
+        {
+            Edge n=graph[rem.vertex][i];
+            if(visited[n.nebr]==false)
+            {
+                Dpair bp(n.nebr,rem.cost+n.wt,rem.path+to_string(n.nebr));
+                q.push(bp);
+            }
+        }
+    }
+}
 
-// }
+//REVIEWED.
 
 
 
@@ -340,15 +342,26 @@ int main()
 
 
 
-    //3. IS_BIPARTITE     (to check if graph is bigraph, without being pro-active)
 
+    //3. IS_BIPARTITE     (to check if graph is bigraph, without being pro-active)
+    
+    /*
     cout<<"this graph is bi-graph = "<<isBiPartite();     //this could be done proactively.
+    */
 
     //reviewed.
 
 
 
 
-    // dikshtra(0);
+    //4. DIKSTRA_ALGORITHM   (to find min cost path from src, to all other vertices)
+    
+    /*
+    dikshtra(0);
+    */
+
+    //reviewed.
+
+
     return 0;
 }

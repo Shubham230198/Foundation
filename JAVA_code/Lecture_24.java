@@ -203,6 +203,59 @@ public class Lecture_24
 
 
 
+
+    //4. DIKSTRA_ALGORITHM            (to find min-cost path from a source to all other vertices)
+
+    static class Dpair implements Comparable<Dpair>{
+        int v = -1;
+        int c = -1;
+        String s = "";
+
+        Dpair(int v, int c, String s) {
+            this.v = v;
+            this.c = c;
+            this.s = s;
+        }
+
+        public int compareTo(Dpair other) {         //(implements compareTo using Comparable interface,
+            return this.c - other.c;                //to make pq of Dpair.)
+        }
+    }
+
+
+    static void dikstra(int src, boolean[] visited) {
+        PriorityQueue<Dpair> pq = new PriorityQueue<>();
+        String s = "";
+        s += src;
+        pq.add(new Dpair(src, 0, s));
+
+        while(pq.isEmpty() == false ) {
+            Dpair rem = pq.poll();          //GET and REMOVE
+
+            if(visited[rem.v] == true)      //if already visited, than continue as,
+                continue;                   //min-cost path is already discovered.
+
+            visited[rem.v] = true;          //MARK
+
+            System.out.println(rem.v + " @ " + rem.c + " via " + rem.s);    //WORK
+
+            for(int i = 0; i < graph.get(rem.v).size(); i++) {              //ADD NEBR
+                Edge e = graph.get(rem.v).get(i);
+                if(visited[e.nebr] == false) {
+                    pq.add(new Dpair(e.nebr, rem.c + e.wt, rem.s + e.nebr));
+                }
+            }
+        }
+
+    }
+
+    //REVIEWED
+
+
+
+
+
+
     public static void main(String[] args)
     {
         //pre-requist for graph
@@ -214,7 +267,7 @@ public class Lecture_24
         addEdge(1,2,10);
         addEdge(2,3,10);
         addEdge(0,3,40);
-        addEdge(2,5,5);            //extra edge between 2,5.
+        // addEdge(2,5,5);            //extra edge between 2,5.
         addEdge(3,4,2);
         addEdge(4,5,3);
         addEdge(5,6,3);
@@ -225,6 +278,7 @@ public class Lecture_24
 
 
 
+        
         //1. IS_CONNNECTED       (to check if all the vertices of the graph are connected)
         
         /*       
@@ -262,7 +316,14 @@ public class Lecture_24
 
 
 
-        //4. DIKSTRA ALGORITHM      (to find the shortest cost path to all vertices from a source vertex)
-               
+        //4. DIKSTRA ALGORITHM      (to find the shortest cost path to all vertices from a source vertex)              
+        
+        /*
+        dikstra(0 ,visited);
+        */
+
+        //reviewed.
+
+
     }
 }
