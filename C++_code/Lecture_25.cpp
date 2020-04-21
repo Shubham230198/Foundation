@@ -42,7 +42,7 @@ void addEdge(int v1,int v2, int wt)                    //it will add the edge in
 
 
 
-//1. 
+//1. PRIMS_ALGORITHM     (to get minimum spanning tree)
 
 void addEdge(vector<vector<Edge>>& mst,int v,int av,int c)            //PRIMS ALGORITHM.
 {
@@ -141,6 +141,78 @@ void prims()                                      //prims algorithm.(to find
 }
 
 
+//REVIEWED.
+
+
+
+
+
+
+
+
+//2. TOPOLOGICAL_SORT
+
+vector<vector<Edge>> topoGraph;                     //graph for topological sort.
+
+void addEdgeDirected(int s,int r,int c)        //to add edges in directed graph. 
+{
+    Edge e1;
+    e1.nebr=r;
+    e1.wt=c;
+    topoGraph[s].push_back(e1);
+}
+
+
+
+void topologicalCompo(int i,vector<bool> &visited,stack<int> &s)       //this is similar to gscc. 
+{                            
+    visited[i] = true;                                          
+    for(int j=0;j<topoGraph[i].size();j++)
+    {
+        Edge n=topoGraph[i][j];
+        if(visited[n.nebr]==false)
+        {   
+            topologicalCompo(n.nebr,visited,s);
+        }
+    }
+
+    s.push(i);
+}
+
+
+
+void topological()                               //this is similar to gcc
+{                                                
+    stack<int> s;
+    vector<bool> visited (topoGraph.size(),false);
+    
+    for(int i=0;i<topoGraph.size();i++)
+    {
+        if(visited[i]==false)
+        {
+            topologicalCompo(i,visited,s);
+        }
+    }
+
+    while(s.size()!=0)               //printing the topo sort order, or reverse order of stack.
+    {   
+        cout<<s.top()<<" ";
+        s.pop();
+    }
+
+}
+
+
+//reviewed.
+
+
+
+
+
+
+
+
+
 int main()
 {
     //PRE_REQUIST for graph
@@ -160,7 +232,7 @@ int main()
     addEdge(3,4,2);
     addEdge(4,5,3);
     addEdge(5,6,3);
-    // addEdge(4,6,8);
+    addEdge(4,6,8);
 
     vector<bool> visited (graph.size(), false);
 
@@ -171,62 +243,22 @@ int main()
 
 
 
+    //1. PRIMS_ALGORITHM   (to get the minimum spanning tree)
+
+    /*
     prims();
-}                                         //REVIEWED.
+    */
+
+    //reviewed.
 
 
 
 
 
-                             //TOLOGICAL
-vector<vector<Edge>> topoGraph;                     //graph for topological sort.
 
-void addEdge(vector<vector<Edge>>& topoGraph,int s,int r,int c)        //to add edges in directed graph. 
-{
-    Edge e1;
-    e1.nebr=r;
-    e1.wt=c;
-    topoGraph[s].push_back(e1);
-}
-
-void topologicalCompo(int i,vector<bool> &visited,stack<int> &s)       //to get topological 
-{                                                                      //sort of graph components.
-    for(int j=0;j<topoGraph[i].size();j++)
-    {
-        Edge n=topoGraph[i][j];
-        if(visited[n.nebr]==false)
-        {   
-            visited[n.nebr]=true;
-            topologicalCompo(n.nebr,visited,s);
-        }
-    }
-    s.push(i);
+    //2.TOPOLOGICAL_SORT
     
-}
-
-void topological()                               //to get topological sort of vertices
-{                                                //of graph topoGraph
-    stack<int> s;
-    vector<bool> visited (topoGraph.size(),false);
-    for(int i=0;i<topoGraph.size();i++)
-    {
-        if(visited[i]==false)
-        {
-            topologicalCompo(i,visited,s);
-        }
-    }
-
-    while(s.size()!=0)
-    {
-        cout<<s.top()<<endl;
-        s.pop();
-    }
-
-}
-
-
-int main()
-{
+    /*
     topoGraph.push_back(vector<Edge>());   //0
     topoGraph.push_back(vector<Edge>());   //1
     topoGraph.push_back(vector<Edge>());   //2
@@ -234,17 +266,19 @@ int main()
     topoGraph.push_back(vector<Edge>());   //4
     topoGraph.push_back(vector<Edge>());   //5
     topoGraph.push_back(vector<Edge>());   //6
-    
-    addEdge(topoGraph,0,1,1);
-    addEdge(topoGraph,1,2,1);
-    addEdge(topoGraph,2,3,1);
-    addEdge(topoGraph,0,4,1);
-    addEdge(topoGraph,5,4,1);
-    addEdge(topoGraph,4,3,1);
-    addEdge(topoGraph,5,6,1);
-    addEdge(topoGraph,6,3,1);
+
+    addEdgeDirected(0,1,1);
+    addEdgeDirected(1,2,1);
+    addEdgeDirected(2,3,1);
+    addEdgeDirected(0,4,1);
+    addEdgeDirected(5,4,1);
+    addEdgeDirected(4,3,1);
+    addEdgeDirected(5,6,1);
+    addEdgeDirected(6,3,1);
 
     topological();
+    */
 
-    return 0;
-} 
+    //reviewed.
+
+}
