@@ -1,6 +1,11 @@
+                                            //Lecture_26
+                                            //july-22
+
 import java.util.*;
 public class Lecture_26
-{                                    //KRUSKAL ALGORITHM.
+{
+
+    //PRE-REQUIST for graph creation.
 
     public static class Edge                 //simple edge(data type, for graphs)
     {
@@ -15,8 +20,8 @@ public class Lecture_26
     }
 
     static ArrayList<ArrayList<Edge>> graph = new ArrayList<>();          //actual graph.
-    static ArrayList<ArrayList<Edge>> mst = new ArrayList<>();            //MINIMUM SPANNING TREE(by kruskal)
-
+    
+    
     static void addEdge(ArrayList<ArrayList<Edge>> graph,int v1,int v2,int wt)       //to add a edge in graph.
     {
         Edge n1= new Edge(v2,wt);
@@ -27,7 +32,7 @@ public class Lecture_26
 
     }
 
-
+    
     static void display(ArrayList<ArrayList<Edge>> graph)         //to display a graph
     {
         for(int i=0;i<graph.size();i++)
@@ -42,13 +47,23 @@ public class Lecture_26
         }
     }
 
+    //reviewed.
+    
+    
+    
+    
+    
 
+
+    //1. KRUSKAL_ALGO           (to create a mst of graph).
+
+    static ArrayList<ArrayList<Edge>> mst = new ArrayList<>();            //MINIMUM SPANNING TREE(by kruskal)
+    
     static public class kEdge implements Comparable<kEdge>          //kruskal edge(data type)
     {
         int v1;
         int v2;
         int wt;
-
         kEdge(int v1,int v2,int wt)
         {
             this.v1=v1;
@@ -76,7 +91,7 @@ public class Lecture_26
         else
         {
             pa[v1sl]=v2sl;
-            v2sl++;
+            ra[v2sl]++;
         }
     }
 
@@ -142,8 +157,17 @@ public class Lecture_26
 
     }
 
+    //REVIEWED.
+
+
+
+
+
+
     public static void main(String[] args)
     {
+        //pre-requist for graph creation.
+
         graph.add(new ArrayList<Edge>());
         graph.add(new ArrayList<Edge>());
         graph.add(new ArrayList<Edge>());
@@ -163,9 +187,24 @@ public class Lecture_26
         addEdge(graph,5,6,3);
         addEdge(graph,4,6,8);
         
-        display(graph);                       //to display actual graph.
+        // display(graph);                       //to display actual graph.
         
+        //reviewed.
+
+    
         
+
+
+
+
+
+        //1.Kruskal Algo       (to find mst of a graph)
+
+        /*
         kruskal();                            //to apply kruskal algorithm on graph.
+        */
+
+        //reviewed.
+    
     }
 }

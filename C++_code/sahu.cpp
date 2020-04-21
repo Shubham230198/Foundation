@@ -12,7 +12,6 @@ int main() {
         while(true) {
             cout<<i<<j;
             j--;
-            
         }
 
     }
