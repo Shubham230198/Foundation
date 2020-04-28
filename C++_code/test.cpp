@@ -1,46 +1,18 @@
-#include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
 
-class node {
-	public:
-		int data = -1;
-		int idx = -1;
-
-		node(int d, int i) {
-			this->data = d;
-			this->idx = i;
+void getPass( int ele, bool arr[][6]) {
+	for(int i = 0;i < ele; i++) {
+		for(int j = 0; j < 6; j++) {
+			cout<<arr[i][j]<<"\t";
 		}
-};
+		cout<<"\n";
+	}
+}
 
 int main() {
-	int t; cin>>t;
-	while(t--) {
-		int n, k; cin>>n>>k;
-		vector<pair<int, int>> arr;
-
-		for(int i = 0; i < n; i++) {
-			int d; cin>>d;
-			arr.push_back(make_pair(d, i));
-		}
-
-		sort(arr.begin(), arr.end());
-
-		bool flag = true;
-		for(int i = 0; i < arr.size(); i++) {
-			if(arr[i].second != i) {
-				if((arr[i].second - i) % k != 0) {
-					flag = false;
-					break;
-				}
-			} 
-		}
-
-		if(flag) {
-			cout<<"yes\n";
-		}
-		else {
-			cout<<"no\n";
-		}
-		
-	}
+	int ele = 3;
+	int tar = 6;
+	bool arr[ele][tar];
+	getPass(3, arr);
 }
