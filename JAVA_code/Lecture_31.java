@@ -1,10 +1,15 @@
-//import java.util.*;
+                                    //Lecture_31
+                                    //July-31
+
+import java.util.*;
 public class Lecture_31
 {   
-    static int[][] knapSack(int[] wt,int[] prices,int target)               //TO GET TABULATION FOR GETIING MAX PRICE IN
-    {                                                                       //INSIDE A BAG (of fixed capacity).
-        int[][] global=new int[wt.length][target+1];
 
+    //1. (0-1)_KNAPSACK_PROBLEM
+
+    static int[][] knapSack(int[] wt,int[] prices,int target)
+    {                                          
+        int[][] global=new int[wt.length][target+1];
         for(int r=0;r<global.length;r++)
         {
             for(int c=0;c<global[0].length;c++)
@@ -40,19 +45,26 @@ public class Lecture_31
                 }
             }
         }
-
         return global;
-    }                                                                          //REVIEWED.
+    }
+
+    //REVIEWED.
 
 
 
 
 
 
-    static int[] knapSackDuplicacy(int[] wt,int[] prices,int target)                //SAME AS ABOVE,(but any element could be
-    {                                                                               //put inside the bag, any number of times).
-        int[] global2=new int[target+1];                                            //[permutation method is used]
-        global2[0]=0;                                                               //[but combination method could also be used].
+
+
+
+    
+    //2. 0-1_KNAPSACK_PROBLEM       (with multiple items of any type, can be selected).
+
+    static int[] knapSackDuplicacy(int[] wt,int[] prices,int target)                
+    {                                                                               
+        int[] global2=new int[target+1];                                            
+        global2[0]=0;                                                               
 
         for(int i=1;i<global2.length;i++)
         {   int max=0;
@@ -68,13 +80,26 @@ public class Lecture_31
         }
 
         return global2;
-    }                                                                             //REVIEWED.
+    }
+
+    //REVIEWED.
 
 
 
 
-    static int[] pairCount(int people)                           //TO COUNT NO. OF WAYS SO THAT, n PEOPLE COULD GROUPED,
-    {                                                            //EITHER BY PAIRING INTO TWO, OR BEING SINGLE.
+
+
+
+
+
+
+
+
+
+    //3. N_FRIENDS_PROBLEM      (to count number of ways, so that
+                                //n people could pair up or stay single.
+    static int[] pairCount(int people)                           
+    {                                                            
         int[] global3=new int[people+1];
         global3[0]=1;
         global3[1]=1;
@@ -85,11 +110,22 @@ public class Lecture_31
         }
 
         return global3;
-    }                                                             //REVIEWED.
+    }
+
+    //REVIEWED.
 
 
 
 
+
+
+
+
+
+
+
+
+    //4. FILL_THE _CARPET_AREA.         (of size n*m with the m*1 sized tiles)
 
     static int[] carpetTiles(int m,int n)                         //WAYS TO FILL A AREA of (m*n), BY TILES OF AREA (m*1).
     {
@@ -106,50 +142,81 @@ public class Lecture_31
         }
 
         return global4;
-    }                                                             //REVIEWED.
+    }
+
+    //REVIEWED.
+
+
+
+
+
+
+
+
+
 
 
     public static void main(String[] args)
     {
-        /*int[] wt={2,5,1,3,4};                                                    //max price item in a bag, with fixed capacity.
+
+        //1.(0-1 Knapsack Problem)
+
+        /*
+        int[] wt={2,5,1,3,4};
         int[] prices={15,14,10,45,30};
 
         int[][] global=knapSack(wt,prices,7);
+        System.out.println("Max profit is " + global[global.length - 1][global[0].length - 1]);
+        */
 
-        for(int i=0;i<global.length;i++)
-        {
-            for(int j=0;j<global[0].length;j++)
-            {
-                System.out.print(global[i][j] + "\t");
-            }
-            System.out.println();
-        }*/                                                                   //REVIEWED.
-
-
-        /*int[] wt={2,5,1,3,4};                                             //max price item in a bag, with fixed capacity.
-        int[] prices={15,14,10,45,30};                                    //but duplicacy of items is allowed.
-        int[] global2=knapSackDuplicacy(wt, prices,7);
-        for(int i=0;i<global2.length;i++)
-        {
-            System.out.print(global2[i] + "\t");
-        }*/                                                                //REVIEWED.
+        //REVIEWED.
 
 
 
-        /*int[] global3=pairCount(5);                                        //to get count of ways in which n people, could
-        for(int i=0;i<global3.length;i++)                                  //pair up with each other(only 2 people) or could
-        {                                                                  //stay single.
-            System.out.print(global3[i] + "\t");
-        }*/                                                                    //REVIEWED.
-    
+
+
+
+
+        //2.(0-1 Knapsack Problem)      (with infinite number of all types of items)
         
+        /*
+        int[] wt={2,5,1,3,4};                                             //max price item in a bag, with fixed capacity.
+        int[] prices={15,14,10,45,30};                                    //but duplicacy of items is allowed.
+        
+        int[] global2=knapSackDuplicacy(wt, prices,7);
+        System.out.println(global2[global2.length -1]);
+        */
 
-        /*int[] global4=carpetTiles(2,10);                                    //count to cover a area of (m*n), by tiles of size (m*1).
+        //reviewed.
 
-        for(int i=0;i<global4.length;i++)
-        {
-            System.out.print(global4[i] + "\t");
-        }*/                                                                  //REVIEWED.
+
+
+
+
+
+
+        //3.N_FRIENDS_PROBLEM.      (number of ways so that n people, either colud pair-up or stay single.
+        
+        /*
+        int[] global3=pairCount(5);
+        System.out.println(global3[global3.length - 1]);
+        */
+
+        //reviewed.
+
+
+
+
+
+
+        //4. FILL_THE_AREA      (of size n*m, with tiles of size m*1)
+        
+        /*
+        int[] global4=carpetTiles(2,10);                                    //count to cover a area of (m*n), by tiles of size (m*1).
+        System.out.println(global4[global4.length - 1]);
+        */
+        
+        //reviewed.
     }
 
 }
