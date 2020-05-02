@@ -1,7 +1,47 @@
-//import java.util.*;
+                                        //Lecture-32
+                                        //August-2
 
+import java.util.*;
 public class Lecture_32
 {   
+    
+    //1.SHARES_PROFIT_PROBLEM       (to get max profit by buying and selling shares
+                                    //without holding more than 1 share at a time).
+    static int sharesProfit(int[] arr, int k) {
+        int[][] dp = new int[2][arr.length];
+
+        dp[0][0] = -1 * arr[0];         //buying the first stock.
+        dp[1][0] = 0;                   //nothing to buy.
+
+        for(int j = 1; j < dp[0].length; j++) {
+            for(int i = 0; i < dp.length; i++) {
+                if(i == 0) {
+                    dp[i][j] = Math.max(dp[i][j - 1], dp[i + 1][j - 1] - arr[j]);
+                }
+                else {
+                    dp[i][j] = Math.max(dp[i][j - 1], dp[i - 1][j - 1] + arr[j] - k);
+                }
+            }
+        }
+
+        return dp[dp.length - 1][dp[0].length - 1];
+    }
+
+    //REVIEWED.
+
+
+
+
+
+
+
+
+
+
+
+
+    //2.LONGEST_COMMON_SUBSEQUENCE      (just to find max length of LCS)
+
     static int[][] longestCommonSubSequence(String s1,String s2)                    //TO GET LENGTH LONGEST COMMON SUBSEQUENCE.
     {
         int[][] global=new int[s1.length()+1][s2.length()+1];
@@ -10,33 +50,37 @@ public class Lecture_32
         {
             for(int c=global[0].length-1;c>=0;c--)
             {
-                if(r==global.length-1 && c==global[0].length-1)
-                {
-                    global[r][c]=0;
-                }
-                else if(r==global.length-1)
-                {
-                    global[r][c]=0;
-                }
-                else if(c==global[0].length-1)
+                if(r==global.length-1 || c==global[0].length-1)
                 {
                     global[r][c]=0;
                 }
                 else
                 {
-                    if(s1.charAt(r)==s2.charAt(c))
+                    if(s1.charAt(r)==s2.charAt(c))      //if characters are same.
                         global[r][c]=1+global[r+1][c+1];
 
-                    else
+                    else                                //if characters are not same.
                         global[r][c]=Math.max(global[r+1][c],global[r][c+1]);
                 }
             }
         }
         return global;
-    }                                                                       //REVIEWED.
+    }
+
+    //REVIEWED.
 
 
 
+
+
+
+
+
+
+
+
+
+    //3.PRINTING_THE_LCS        (it uses the above dp creating function)
 
     static void longestCommonSubSequencePath(String s1,String s2,int i,int j,int[][] global2,String ans)   //TO GET LONGEST COMMON
     {                                                                                                      //SUBSEQUENCE.
@@ -64,11 +108,23 @@ public class Lecture_32
         }
     }                                                                                 //REVIEWED.
 
+    //REVEIWED.
 
 
 
 
-    static int[][] longestPalindromeSubSequence(String s)        //TO GET LENGTH OF LONGEST PALINDROMIC SUB SEQUENCE OF A STRING.
+
+
+
+
+
+
+
+
+
+    //4.LONGEST_PALINDROMIC_SUBSEQUENCE         (to get the length of LPS)
+
+    static int[][] longestPalindromeSubSequence(String s)
     {
         int[][] global3=new int[s.length()][s.length()];
 
@@ -102,37 +158,88 @@ public class Lecture_32
         return global3;
     }                                                                       //REVIEWED.
 
+    //REVIEWED.
+
+
+
+
+
+
+
+
+
+
+
 
 
     public static void main(String[] args)
     {
         
-        /*int[][] global= longestCommonSubSequence("abcd","aebd");               //count of longest common subsequence.
-        for(int i=0;i<global.length;i++)
-        {
-            for(int j=0;j<global[0].length;j++)
-            {
-                System.out.print(global[i][j] + "\t");
-            }
-            System.out.println();
-        }*/                                                                        //reviewed.
+        //1.SHARE_PROFIT_PROBLEM        (to get max profit, from shares)
+
+        /*
+        int[] arr = {9,1,3,10,1,4,6,9};
+        int k = 2;
+
+        System.out.println("The max profit from shares is " + sharesProfit(arr, k));
+        */
+
+        //REVIEWED.
+
+
+
+        
+
+
+
+
+
+        //2. LONGEST_COMMON_SUBSEQUENCE         (only the length of LCS)
+
+        /*
+        int[][] global= longestCommonSubSequence("abcd","aebd");               //count of longest common subsequence.
+        
+        System.out.println("The length of LCS is " + global[0][0]);
+        */
+
+        //reviewed.
     
     
 
+
+
+
+
+
+
+        //3.Printing_the_LCS        (this function uses DP of LCS)
+
+        /*
         int[][] global2=longestCommonSubSequence("abcd","aebd");                //to get longest common subsequence, by recursion
         longestCommonSubSequencePath("abcd","aebd",0,0,global2,"");             //and DP both.
-                                                                                     //reviewed.
+        */
+
+        //reviewed.
 
 
-                                                                                     
-        /*int[][] global3=longestPalindromeSubSequence("abckycbc");                //length of longest palindromic sub sequence.
-        for(int i=0;i<global3.length;i++)
-        {
-            for(int j=0;j<global3.length;j++)
-            {
-                System.out.print(global3[i][j] + "\t");
-            }
-            System.out.println();
-        }*/                                                                         //reviewed.
+
+
+
+
+
+
+
+        //4.LONGEST_PALINDROMIC_SUBSEQUENCE         (only the length of LPS)
+
+        /*
+        int[][] global3=longestPalindromeSubSequence("abckycbc");                //length of longest palindromic sub sequence.
+        
+        System.out.println("The length of LPS is " + global3[0][global3[0].length - 1]);
+        */
+
+        //reviewed.
+    
+    
+    
     }
 }
